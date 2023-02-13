@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
+const bcrypt = require("bcryptjs");
+const salt = require("../config/config").salt;
 
 const userSchema = new Schema(
   {
@@ -22,5 +24,11 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  const hash = await bcrypt.hash(this.password, salt);
+  next();
+});
 
 module.exports = model("User", userSchema);

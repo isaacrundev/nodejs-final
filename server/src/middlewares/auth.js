@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 
 const User = require("../model/User");
-const config = require("../config/config");
+const jwtSecret = require("../config/config").jwtSecret;
 
 const signUp = async (data) => {
   const { username, email, password } = data;
@@ -17,7 +17,7 @@ const signUp = async (data) => {
   }
   getUser = new User(data);
 
-  const token = JWT.sign({ id: getUser._id }, config.jwtSecret);
+  const token = JWT.sign({ id: getUser._id }, jwtSecret);
 
   await getUser.save();
 
