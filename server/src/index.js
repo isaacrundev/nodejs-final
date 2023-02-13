@@ -1,5 +1,7 @@
 require("dotenv").config();
 require("express-async-errors");
+require("./utils/db");
+require("./utils/socket");
 
 const express = require("express");
 const path = require("path");
@@ -8,15 +10,17 @@ const cors = require("cors");
 const app = express();
 const http = require("http").Server(app);
 
-require("./utils/socket");
+app.use(express.json());
 app.use(cors());
 
-app.get("/api", (_, res) =>
+app.get("/check", (_, res) =>
   res.json({ response: "=Health check=" }).status(200)
 );
 
+app.use("/api", require("./routes/index"));
+
 app.use((req, res, next) => {
-  const err = new Error("404 not found");
+  const err = new Error("404 not found!");
   err.status = 404;
   next(err);
 });
