@@ -6,7 +6,7 @@ const User = require("../model/User");
 const jwtSecret = require("../config/config").jwtSecret;
 
 const signUp = async (data) => {
-  const { username, email, password } = data;
+  const { username, email } = data;
   let getUser = await User.findOne({ username });
   let getEmail = await User.findOne({ email });
   if (getUser) {
@@ -29,6 +29,25 @@ const signUp = async (data) => {
   });
 };
 
-const login = async () => {};
+const login = async (username, password) => {
+  let user = await User.findOne({ username });
+  if (!user) {
+    throw new Error(`Username doesn't exist`);
+  }
+  const isValid = await bcrypt.compare(password, user.password);
+
+  const token = JWT.sign({ id: user._id }, jwtSecret);
+
+  if (isValid) {
+    return (data = {
+      userId: user._id,
+      username: user.username,
+      email: user.email,
+      token,
+    });
+  } else {
+    throw new Error(`Incorrect username/password`);
+  }
+};
 
 module.exports = { signUp, login };

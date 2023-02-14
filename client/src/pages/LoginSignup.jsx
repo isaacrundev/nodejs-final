@@ -1,50 +1,6 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
-import {
-  Grid,
-  TextField,
-  Button,
-  Container,
-  Typography,
-  Paper,
-  Tabs,
-  Tab,
-  Box,
-} from "@mui/material";
-import Login from "./components/login";
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+import Login from "./components/Login";
+import { Label, TextInput, Checkbox, Button } from "flowbite-react";
 
 const signUpValues = {
   userName: "",
@@ -62,47 +18,30 @@ export default function LoginSignup() {
 
   return (
     <>
-      <Paper>
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab label="Login" {...a11yProps(0)} />
-              <Tab label="Sign Up" {...a11yProps(1)} />
-            </Tabs>
-          </Box>
-          <TabPanel value={value} index={0}>
-            <Login />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <form action="submit" method="POST">
-              <Grid container direction="column" spacing={3}>
-                <Grid item>
-                  <TextField label="Username" value={signUpValues.userName} />
-                </Grid>{" "}
-                <Grid item>
-                  <TextField label="Email" value={signUpValues.email} />
-                </Grid>
-                <Grid item>
-                  <TextField label="Password" value={signUpValues.passWord} />
-                </Grid>{" "}
-                <Grid item>
-                  <TextField
-                    label="Confirm Password"
-                    value={signUpValues.confirmPassWord}
-                  />
-                </Grid>
-                <Grid item>
-                  <Button variant="contained">SIGN UP</Button>
-                </Grid>
-              </Grid>
-            </form>
-          </TabPanel>
-        </Box>
-      </Paper>
+      <form className="flex flex-col gap-4">
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="email1" value="Your email" />
+          </div>
+          <TextInput
+            id="email1"
+            type="email"
+            placeholder="name@flowbite.com"
+            required={true}
+          />
+        </div>
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="password1" value="Your password" />
+          </div>
+          <TextInput id="password1" type="password" required={true} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Checkbox id="remember" />
+          <Label htmlFor="remember">Remember me</Label>
+        </div>
+        <Button type="submit">Submit</Button>
+      </form>
     </>
   );
 }
