@@ -12,7 +12,7 @@ const signUpValues = {
 export default function LoginSignup() {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (e) => {
     setValue(newValue);
   };
 
@@ -21,20 +21,20 @@ export default function LoginSignup() {
       <form className="flex flex-col gap-4">
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="email1" value="Your email" />
+            <Label htmlFor="username" value="Username" />
           </div>
           <TextInput
-            id="email1"
+            id="username"
             type="email"
-            placeholder="name@flowbite.com"
+            placeholder="name@emailaddress.com"
             required={true}
           />
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="password1" value="Your password" />
+            <Label htmlFor="password" value="Password" />
           </div>
-          <TextInput id="password1" type="password" required={true} />
+          <TextInput id="password" type="password" required={true} />
         </div>
         <div className="flex items-center gap-2">
           <Checkbox id="remember" />
