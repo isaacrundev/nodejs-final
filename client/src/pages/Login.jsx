@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import axios from "axios";
-import { redirect } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const loginValues = {
-  username: "",
+  email: "",
   password: "",
 };
 
@@ -23,7 +23,9 @@ export default function Login() {
       value
     );
     if (result.status === 200) {
-      redirect("/Dashboard");
+      console.log(`Login successfully!!`);
+    } else {
+      console.log(`Login failed!!`);
     }
   };
 
@@ -32,13 +34,13 @@ export default function Login() {
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="username" value="Username" />
+            <Label htmlFor="email" value="Email Address" />
           </div>
           <TextInput
-            id="username"
-            name="username"
-            type="text"
-            placeholder="ex: isaac"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="ex: isaac@gmail.com"
             required={true}
             onChange={handleInputChange}
           />
@@ -58,7 +60,7 @@ export default function Login() {
         </div>
         <div className="flex items-center gap-2">
           <p className=" text-black">Not a member?</p>
-          <a href="" className="text-red-600 underline">
+          <a href="/signup" className="text-red-600 underline">
             Sign up
           </a>
         </div>

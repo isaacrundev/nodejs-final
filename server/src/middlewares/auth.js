@@ -29,10 +29,10 @@ const signUp = async (data) => {
   });
 };
 
-const login = async (username, password) => {
-  let user = await User.findOne({ username });
+const login = async (email, password) => {
+  let user = await User.findOne({ email });
   if (!user) {
-    throw new Error(`Username doesn't exist`);
+    throw new Error(`Email address doesn't exist`);
   }
   const isValid = await bcrypt.compare(password, user.password);
 
@@ -46,7 +46,7 @@ const login = async (username, password) => {
       token,
     });
   } else {
-    throw new Error(`Incorrect username/password`);
+    throw new Error(`Incorrect email/password`);
   }
 };
 
