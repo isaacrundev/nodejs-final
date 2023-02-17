@@ -12,7 +12,7 @@ export default function Login() {
   const [value, setValue] = useState(loginValues);
   const [token, setToken] = useState(null);
 
-  const userContext = createContext();
+  const UserContext = createContext();
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -26,6 +26,7 @@ export default function Login() {
       value
     );
     if (result.status === 200) {
+      setToken(result["data"].token);
     } else {
       console.log(`Login failed!!`);
     }
