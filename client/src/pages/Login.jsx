@@ -2,6 +2,7 @@ import { useState, createContext } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { Navigate } from "react-router-dom";
 
 const loginValues = {
   email: "",
@@ -27,8 +28,8 @@ export default function Login() {
     );
     if (result.status === 200) {
       setToken(result["data"].token);
+      console.log("Logged in");
     } else {
-      console.log(`Login failed!!`);
     }
   };
 
