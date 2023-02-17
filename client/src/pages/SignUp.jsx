@@ -3,33 +3,38 @@ import { Label, TextInput, Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { string, z } from "zod";
+import { z } from "zod";
 
 const schema = z
   .object({
-    username: string().min(6),
-    email: string().email(),
-    password: string().min(6),
-    confirmpassword: string().min(6),
+    username: z.string().min(6),
+    email: z.string().email(),
+    password: z.string().min(6),
+    confirmPassword: z.string().min(6),
   })
-  .superRefine(({ password, confirmpassword }, ctx) => {
-    if (password == !confirmpassword) {
-      ctx.addIssue({
-        code: "custom",
-        message: `Passwords didn't match`,
-      });
+  .refine(
+    (form) => {
+      return form.password === form.confirmPassword;
+    },
+    {
+      message: "Passwords must match.",
+      path: ["confirmPassword"],
     }
-  });
+  );
 
 export default function SignUp() {
-  const { register, formState, handleSubmit } = useForm({
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    watch,
+  } = useForm({
     defaultValues: {},
     resolver: zodResolver(schema),
   });
 
-  const { errors } = formState;
-
   const handleSave = async (values) => {
+    console.log(errors);
     const saveData = await axios.post(
       `${import.meta.env.VITE_SERVER_URL}/api/auth/signup`,
       values
@@ -38,52 +43,76 @@ export default function SignUp() {
 
   return (
     <>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleSave)}>
+      <form
+        className="flex flex-col gap-4 text-black"
+        onSubmit={handleSubmit(handleSave)}
+      >
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="username" value="Username" />
+            <label htmlFor="username">Username</label>
           </div>
-          <TextInput
+          <input
+            className=" rounded-md border-none"
             id="username"
             {...register("username")}
             type="text"
             required={true}
           />
         </div>
-        <div className=" text-red-600">{errors.username?.message}</div>
+        {errors.username?.message ? (
+          <div className=" text-red-600 text-sm">
+            {errors.username?.message}
+          </div>
+        ) : null}
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="email" value="Email Address" />
+            <label htmlFor="email">Email Address</label>
           </div>
-          <TextInput
+          <input
+            className=" rounded-md border-none"
             id="email"
             {...register("email")}
             type="email"
             required={true}
           />
         </div>
+        {errors.email?.message ? (
+          <div className=" text-red-600 text-sm">{errors.email?.message}</div>
+        ) : null}
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="password" value="Password" />
+            <label htmlFor="password">Password</label>
           </div>
-          <TextInput
+          <input
+            className=" rounded-md border-none"
             id="password"
             {...register("password")}
             type="password"
             required={true}
           />
         </div>
+        {errors.password?.message ? (
+          <div className=" text-red-600 text-sm">
+            {errors.password?.message}
+          </div>
+        ) : null}
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="confirmpassword" value="Confirm Password" />
+            <label htmlFor="confirmPassword">Confirm Password</label>
           </div>
-          <TextInput
-            id="password"
-            {...register("confirmpassword")}
+          <input
+            className=" rounded-md border-none"
+            id="confirmPassword"
+            {...register("confirmPassword")}
             type="password"
             required={true}
           />
         </div>
+        {errors.confirmPassword?.message ? (
+          <div className=" text-red-600 text-sm">
+            {errors.confirmPassword?.message}
+          </div>
+        ) : null}
         <Button type="submit">Sign up</Button>
       </form>
     </>

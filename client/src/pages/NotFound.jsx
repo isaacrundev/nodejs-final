@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function NotFound() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate(-1), 3000;
+    });
+  }, []);
+
   return (
     <div className="bg-indigo-900 relative overflow-hidden h-screen">
       <img
