@@ -2,7 +2,7 @@ import { useState, createContext } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const loginValues = {
   email: "",
@@ -11,8 +11,9 @@ const loginValues = {
 
 export default function Login() {
   const [value, setValue] = useState(loginValues);
-  const [token, setToken] = useState(null);
-
+  const [loginData, setLoginData] = useState(null);
+  const [failMsg, setFailMsg] = useState(false);
+  const navigate = useNavigate();
   const UserContext = createContext();
 
   const handleInputChange = (e) => {
@@ -27,9 +28,10 @@ export default function Login() {
       value
     );
     if (result.status === 200) {
-      setToken(result["data"].token);
-      console.log("Logged in");
+      setLoginData(result["data"]);
+      navigate("/dashboard");
     } else {
+      setFailMsg = true;
     }
   };
 
@@ -69,6 +71,11 @@ export default function Login() {
           </a>
         </div>
         <Button type="submit">Login</Button>
+        {failMsg ? (
+          <div className=" text-red-600 text-sm">
+            Incorrect username/password
+          </div>
+        ) : null}
       </form>
     </>
   );
