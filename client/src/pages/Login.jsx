@@ -12,7 +12,6 @@ const loginValues = {
 
 export default function Login() {
   const [value, setValue] = useState(loginValues);
-  const [loginData, setLoginData] = useState(null);
   const [failMsg, setFailMsg] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -27,14 +26,13 @@ export default function Login() {
     try {
       e.preventDefault();
       setLoading(true);
+
       const result = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
         value
       );
-
       if (result.status === 200) {
-        // setLoginData(result.data.token);
-        console.log(loginData);
+        localStorage.setItem("token", result.data.token);
         navigate("/dashboard");
       }
     } catch (error) {

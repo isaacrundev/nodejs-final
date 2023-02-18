@@ -1,6 +1,12 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 export default function PrivateRoutes() {
-  return <div>PrivateRoutes</div>;
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   !localStorage.getItem("token") ? navigate("/") : null;
+  // }, []);
+
+  return localStorage.getItem("token") ? <Outlet /> : navigate("/");
 }
