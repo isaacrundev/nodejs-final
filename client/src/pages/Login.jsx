@@ -3,6 +3,7 @@ import { Label, TextInput, Button } from "flowbite-react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import LoadingIcon from "../assets/LoadingIcon";
 
 const loginValues = {
   email: "",
@@ -22,16 +23,22 @@ export default function Login() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await axios.post(
-      `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
-      value
-    );
-    if (result.status === 200) {
-      setLoginData(result["data"]);
-      navigate("/dashboard");
-    } else {
-      setFailMsg = true;
+    try {
+      e.preventDefault();
+      const result = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
+        value
+      );
+      if (result.status === 200) {
+        setLoginData(result["data"]);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error.response.data.error) {
+        setFailMsg(true);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -70,7 +77,10 @@ export default function Login() {
             Sign up
           </a>
         </div>
-        <Button type="submit">Login</Button>
+        <Button type="submit">
+          {/* <LoadingIcon /> */}
+          Login
+        </Button>
         {failMsg ? (
           <div className=" text-red-600 text-sm">
             Incorrect username/password
