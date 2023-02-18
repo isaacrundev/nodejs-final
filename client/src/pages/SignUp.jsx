@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Label, TextInput, Button } from "flowbite-react";
+import { Label, TextInput, Button, ListGroup } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +24,9 @@ const schema = z
   );
 
 export default function SignUp() {
+  const [usernameExist, setUsernameExist] = useState(false);
+  const [emailExist, setEmailExist] = useState(false);
+
   const {
     register,
     formState: { errors },
@@ -45,7 +48,13 @@ export default function SignUp() {
       );
       navigate("/");
     } catch (error) {
-      console.log(error);
+      if (error.response.data.error === "Username exists") {
+        setUsernameExist(true);
+      } else if (error.response.data.error === "Email exists") {
+        setEmailExist(true);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -67,6 +76,9 @@ export default function SignUp() {
             required={true}
           />
         </div>
+        {usernameExist ? (
+          <div className=" text-red-600 text-sm">Username existed</div>
+        ) : null}
         {errors.username?.message ? (
           <div className=" text-red-600 text-sm">
             {errors.username?.message}
@@ -84,6 +96,9 @@ export default function SignUp() {
             required={true}
           />
         </div>
+        {emailExist ? (
+          <div className=" text-red-600 text-sm">Email existed</div>
+        ) : null}
         {errors.email?.message ? (
           <div className=" text-red-600 text-sm">{errors.email?.message}</div>
         ) : null}
