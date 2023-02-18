@@ -33,6 +33,7 @@ export default function Login() {
       );
 
       if (result.status === 200) {
+        console.log("Login succeeded");
         setLoginData(result["data"]);
         navigate("/dashboard");
       }
