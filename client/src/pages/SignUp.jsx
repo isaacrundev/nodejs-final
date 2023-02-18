@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 const schema = z
   .object({
@@ -33,12 +34,19 @@ export default function SignUp() {
     resolver: zodResolver(schema),
   });
 
+  const navigate = useNavigate();
+
   const handleSave = async (values) => {
-    console.log(errors);
-    const saveData = await axios.post(
-      `${import.meta.env.VITE_SERVER_URL}/api/auth/signup`,
-      values
-    );
+    try {
+      console.log(errors);
+      const saveData = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/signup`,
+        values
+      );
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

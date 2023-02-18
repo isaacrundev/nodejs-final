@@ -33,8 +33,8 @@ export default function Login() {
       );
 
       if (result.status === 200) {
-        console.log("Login succeeded");
-        setLoginData(result["data"]);
+        // setLoginData(result.data.token);
+        console.log(loginData);
         navigate("/dashboard");
       }
     } catch (error) {
