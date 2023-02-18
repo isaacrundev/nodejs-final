@@ -14,6 +14,7 @@ export default function Login() {
   const [value, setValue] = useState(loginValues);
   const [loginData, setLoginData] = useState(null);
   const [failMsg, setFailMsg] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const UserContext = createContext();
 
@@ -25,10 +26,12 @@ export default function Login() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
       const result = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
         value
       );
+
       if (result.status === 200) {
         setLoginData(result["data"]);
         navigate("/dashboard");
@@ -36,6 +39,7 @@ export default function Login() {
     } catch (error) {
       if (error.response.data.error) {
         setFailMsg(true);
+        setLoading(false);
       } else {
         console.log(error);
       }
@@ -78,7 +82,7 @@ export default function Login() {
           </a>
         </div>
         <Button type="submit">
-          {/* <LoadingIcon /> */}
+          {loading ? <LoadingIcon /> : null}
           Login
         </Button>
         {failMsg ? (
