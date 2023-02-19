@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 const schema = z
   .object({
@@ -27,11 +27,14 @@ export default function SignUp() {
   const [usernameExist, setUsernameExist] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
 
+  if (localStorage.getItem("token")) {
+    return <Navigate to="/dashboard" />;
+  }
+
   const {
     register,
     formState: { errors },
     handleSubmit,
-    watch,
   } = useForm({
     defaultValues: {},
     resolver: zodResolver(schema),

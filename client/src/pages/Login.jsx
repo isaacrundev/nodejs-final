@@ -2,7 +2,7 @@ import { useState, createContext } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import LoadingIcon from "../assets/LoadingIcon";
 
 const loginValues = {
@@ -16,6 +16,10 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const UserContext = createContext();
+
+  if (localStorage.getItem("token")) {
+    return <Navigate to="/dashboard" />;
+  }
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
