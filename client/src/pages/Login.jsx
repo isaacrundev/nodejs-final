@@ -35,7 +35,6 @@ export default function Login() {
         value
       );
       if (result.status === 200) {
-        console.log(result);
         localStorage.setItem("token", result.data.token);
         localStorage.setItem("username", result.data.username);
         navigate("/dashboard");

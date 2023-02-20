@@ -11,13 +11,13 @@ const postValues = {
 };
 
 export default function Dashboard() {
-  const [value, setValue] = useState(postValues);
+  const [input, setInput] = useState(postValues);
 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setValue((prev) => ({ ...prev, [name]: value }));
+    setInput((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCreateClick = async (e) => {
@@ -25,10 +25,10 @@ export default function Dashboard() {
       e.preventDefault();
       const result = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/post/create`,
-        value
+        input
       );
       if (result.status === 200) {
-        console.log("Good");
+        console.log(result);
       }
     } catch (error) {
       console.log(error.message);
@@ -38,8 +38,6 @@ export default function Dashboard() {
   return (
     <>
       <MainMenu />
-      {/* <h1 className=" text-black">Dashboard</h1>
-      <Button onClick={handleLogoutClick}>Logout</Button> */}
 
       <form onSubmit={handleCreateClick}>
         <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">

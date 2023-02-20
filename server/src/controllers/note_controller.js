@@ -7,7 +7,7 @@ const createController = async (req, res, next) => {
 
 const readController = async (req, res, next) => {
   const readPostService = await Note.find();
-  return res.json(readController);
+  return res.json(readPostService);
 };
 
 const updateController = () => {};
