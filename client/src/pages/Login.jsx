@@ -51,49 +51,51 @@ export default function Login() {
 
   return (
     <>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="email" value="Email Address" />
+      <div className="">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="email" value="Email Address" />
+            </div>
+            <TextInput
+              id="email"
+              name="email"
+              type="email"
+              placeholder="ex: isaac@gmail.com"
+              required={true}
+              onChange={handleInputChange}
+            />
           </div>
-          <TextInput
-            id="email"
-            name="email"
-            type="email"
-            placeholder="ex: isaac@gmail.com"
-            required={true}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="password" value="Password" />
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="password" value="Password" />
+            </div>
+            <TextInput
+              id="password"
+              name="password"
+              type="password"
+              placeholder="ex: abc123"
+              required={true}
+              onChange={handleInputChange}
+            />
           </div>
-          <TextInput
-            id="password"
-            name="password"
-            type="password"
-            placeholder="ex: abc123"
-            required={true}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <p className=" text-black">Not a member?</p>
-          <a href="/signup" className="text-red-600 underline">
-            Sign up
-          </a>
-        </div>
-        <Button type="submit">
-          {loading ? <LoadingIcon /> : null}
-          Login
-        </Button>
-        {failMsg ? (
-          <div className=" text-red-600 text-sm">
-            Incorrect username/password
+          <div className="flex items-center gap-2">
+            <p className=" text-black">Not a member?</p>
+            <a href="/signup" className="text-red-600 underline">
+              Sign up
+            </a>
           </div>
-        ) : null}
-      </form>
+          <Button type="submit">
+            {loading ? <LoadingIcon /> : null}
+            Login
+          </Button>
+          {failMsg ? (
+            <div className=" text-red-600 text-sm">
+              Incorrect username/password
+            </div>
+          ) : null}
+        </form>
+      </div>
     </>
   );
 }
