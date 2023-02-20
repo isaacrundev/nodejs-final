@@ -51,7 +51,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="">
+      <div className="flex items-center justify-center h-screen">
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div>
             <div className="mb-2 block">
@@ -61,7 +61,7 @@ export default function Login() {
               id="email"
               name="email"
               type="email"
-              placeholder="ex: isaac@gmail.com"
+              placeholder="ex: isaaaaac@gmail.com"
               required={true}
               onChange={handleInputChange}
             />

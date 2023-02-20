@@ -18,7 +18,7 @@ Back-end -
 Bcryptjs
 Cors
 Dotenv
-Express,
+Express
 Eexpress-async-errors
 Jsonwebtoken
 Mongodb
