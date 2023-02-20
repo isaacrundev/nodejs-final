@@ -3,16 +3,17 @@ require("express-async-errors");
 require("./utils/db");
 require("./utils/socket");
 
+const config = require("./config/config");
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
 
 const app = express();
 const http = require("http").Server(app);
-const PORT = require("./config/config").PORT;
+const PORT = config.PORT;
 
 app.use(express.json());
-app.use(cors({ origin: process.env.CLIENT_URL }));
+app.use(cors({ origin: config.clientUrl }));
 
 app.get("/check", (_, res) =>
   res.json({ response: "=Health check=" }).status(200)
