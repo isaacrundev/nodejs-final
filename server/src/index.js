@@ -12,7 +12,7 @@ const http = require("http").Server(app);
 const PORT = require("./config/config").PORT;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_URL }));
 
 app.get("/check", (_, res) =>
   res.json({ response: "=Health check=" }).status(200)
