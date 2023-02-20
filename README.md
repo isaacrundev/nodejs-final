@@ -29,4 +29,4 @@ Nodemon
 
 The password field will be encrypted whenever it's being saved to the database
 
-![Screenshot_20230220_094555](Screenshot_20230220_094555.jpg)
+![Screenshot_20230220_094555](Screenshot_20230220_094555.png)
