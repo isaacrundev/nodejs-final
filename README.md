@@ -1,32 +1,35 @@
-Deployed Url: https://nodejs-final-client.vercel.app/
+Deployed Url: <https://nodejs-final-client.vercel.app/>  
 
-------------------------------------------------------
-Used libraries:
+*It may take a while (sometimes around 30 seconds) to get and post data due to the speed of the servers
 
-Front-end -
+---
 
-Axios
-Flowbite
-Tailwind
-React-hook-form
-React-router-dom
-Zod
+Used libraries:  
+
+Front-end -  
+
+Axios  
+Flowbite  
+Tailwind  
+React-hook-form  
+React-router-dom  
+Zod  
 
 
-Back-end -
+Back-end -  
 
-Bcryptjs
-Cors
-Dotenv
-Express
-Eexpress-async-errors
-Jsonwebtoken
-Mongodb
-Mongoose
-Nodemon
+Bcryptjs  
+Cors  
+Dotenv  
+Express  
+Eexpress-async-errors  
+Jsonwebtoken  
+Mongodb  
+Mongoose  
+Nodemon  
 
-------------------------------------------------------
+---
 
-The password field will be encrypted whenever it's being saved to the database
+The password field will be encrypted whenever it's being saved to the database  
 
 ![Screenshot_20230220_094555](Screenshot_20230220_094555.png)

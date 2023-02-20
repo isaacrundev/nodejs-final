@@ -63,84 +63,93 @@ export default function SignUp() {
 
   return (
     <>
-      <form
-        className="flex flex-col gap-4 text-black"
-        onSubmit={handleSubmit(handleSave)}
-      >
-        <div>
-          <div className="mb-2 block">
-            <label htmlFor="username">Username</label>
+      {" "}
+      <div className="flex items-center justify-center h-screen">
+        <form
+          className="flex flex-col gap-4 text-black"
+          onSubmit={handleSubmit(handleSave)}
+        >
+          <div>
+            <div className="mb-2 block">
+              <label htmlFor="username">Username</label>
+            </div>
+            <input
+              className=" rounded-md "
+              id="username"
+              {...register("username")}
+              type="text"
+              required={true}
+            />
           </div>
-          <input
-            className=" rounded-md border-none"
-            id="username"
-            {...register("username")}
-            type="text"
-            required={true}
-          />
-        </div>
-        {usernameExist ? (
-          <div className=" text-red-600 text-sm">Username existed</div>
-        ) : null}
-        {errors.username?.message ? (
-          <div className=" text-red-600 text-sm">
-            {errors.username?.message}
+          {usernameExist ? (
+            <div className=" text-red-600 text-sm">Username existed</div>
+          ) : null}
+          {errors.username?.message ? (
+            <div className=" text-red-600 text-sm">
+              {errors.username?.message}
+            </div>
+          ) : null}
+          <div>
+            <div className="mb-2 block">
+              <label htmlFor="email">Email Address</label>
+            </div>
+            <input
+              className=" rounded-md "
+              id="email"
+              {...register("email")}
+              type="email"
+              required={true}
+            />
           </div>
-        ) : null}
-        <div>
-          <div className="mb-2 block">
-            <label htmlFor="email">Email Address</label>
+          {emailExist ? (
+            <div className=" text-red-600 text-sm">Email existed</div>
+          ) : null}
+          {errors.email?.message ? (
+            <div className=" text-red-600 text-sm">{errors.email?.message}</div>
+          ) : null}
+          <div>
+            <div className="mb-2 block">
+              <label htmlFor="password">Password</label>
+            </div>
+            <input
+              className=" rounded-md"
+              id="password"
+              {...register("password")}
+              type="password"
+              required={true}
+            />
           </div>
-          <input
-            className=" rounded-md border-none"
-            id="email"
-            {...register("email")}
-            type="email"
-            required={true}
-          />
-        </div>
-        {emailExist ? (
-          <div className=" text-red-600 text-sm">Email existed</div>
-        ) : null}
-        {errors.email?.message ? (
-          <div className=" text-red-600 text-sm">{errors.email?.message}</div>
-        ) : null}
-        <div>
-          <div className="mb-2 block">
-            <label htmlFor="password">Password</label>
+          {errors.password?.message ? (
+            <div className=" text-red-600 text-sm">
+              {errors.password?.message}
+            </div>
+          ) : null}
+          <div>
+            <div className="mb-2 block">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+            </div>
+            <input
+              className=" rounded-md"
+              id="confirmPassword"
+              {...register("confirmPassword")}
+              type="password"
+              required={true}
+            />
           </div>
-          <input
-            className=" rounded-md border-none"
-            id="password"
-            {...register("password")}
-            type="password"
-            required={true}
-          />
-        </div>
-        {errors.password?.message ? (
-          <div className=" text-red-600 text-sm">
-            {errors.password?.message}
-          </div>
-        ) : null}
-        <div>
-          <div className="mb-2 block">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-          </div>
-          <input
-            className=" rounded-md border-none"
-            id="confirmPassword"
-            {...register("confirmPassword")}
-            type="password"
-            required={true}
-          />
-        </div>
-        {errors.confirmPassword?.message ? (
-          <div className=" text-red-600 text-sm">
-            {errors.confirmPassword?.message}
-          </div>
-        ) : null}
-        <Button type="submit">Sign up</Button>
-      </form>
+          {errors.confirmPassword?.message ? (
+            <div className=" text-red-600 text-sm">
+              {errors.confirmPassword?.message}
+            </div>
+          ) : null}
+          <Button type="submit">Sign up</Button>
+          <button
+            type="button"
+            class="text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
     </>
   );
 }
