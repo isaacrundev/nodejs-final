@@ -37,6 +37,10 @@ The password field will be encrypted whenever it's being saved to the database
 
 Problems I encountered:
 
-1. I tried to apply useState to monitor the changes of the posts and use useEffect when users enter the dashboard page and whenever the posts are updated. However, it falls into an infinite loop if I set the posts as the dependency. (./src/components/PostList, Line 7~20)
+1. I tried to apply useState to monitor the changes of the posts and use useEffect when users enter the dashboard page and whenever the posts are updated. However, it falls into an infinite loop if I set the posts as the dependency. Therefore, I set the page rerender whenver the post button is clicked.
 
-2. I was going to apply useContext to save the login status (e.g. username, email, token) as a global state, but this time I chose local storage instead.
+2. The post button works unstable, either in local or online.
+
+3. I was going to apply useContext to save the login status (e.g. username, email, token) as a global state, but this time I chose local storage instead.
+
+4. Haven't finished the update and the delete part.
