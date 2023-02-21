@@ -1,22 +1,21 @@
-Deployed Url: <https://nodejs-final-client.vercel.app/>  
+Deployed Url: <https://nodejs-final-client.vercel.app/>
 
-*It may take a while (sometimes around 30 seconds) to get and post data due to the speed of the servers
+\*It may take a while (sometimes around 30 seconds) to get and post data due to the speed of the servers
 
 ---
 
-Used libraries:  
+Used libraries:
 
-Front-end -  
+Front-end -
 
 Axios  
 Flowbite  
 Tailwind  
 React-hook-form  
 React-router-dom  
-Zod  
+Zod
 
-
-Back-end -  
+Back-end -
 
 Bcryptjs  
 Cors  
@@ -26,10 +25,18 @@ Eexpress-async-errors
 Jsonwebtoken  
 Mongodb  
 Mongoose  
-Nodemon  
+Nodemon
 
 ---
 
-The password field will be encrypted whenever it's being saved to the database  
+The password field will be encrypted whenever it's being saved to the database
 
 ![Screenshot_20230220_094555](Screenshot_20230220_094555.png)
+
+---
+
+Problems I encountered:
+
+1. I tried to apply useState to monitor the changes of the posts and use useEffect when users enter the dashboard page and whenever the posts are updated. However, it falls into an infinite loop if I set the posts as the dependency. (./src/components/PostList, Line 7~20)
+
+2. I was going to apply useContext to save the login status (e.g. username, email, token) as a global state, but this time I chose local storage instead.

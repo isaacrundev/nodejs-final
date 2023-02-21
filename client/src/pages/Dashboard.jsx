@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import PostList from "./components/PostList";
 import MainMenu from "./components/MainMenu";
+import LoadingIcon from "../assets/LoadingIcon";
 
 const postValues = {
   username: localStorage.getItem("username"),
@@ -12,6 +13,7 @@ const postValues = {
 
 export default function Dashboard() {
   const [input, setInput] = useState(postValues);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,12 +25,14 @@ export default function Dashboard() {
   const handleCreateClick = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
       const result = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/post/create`,
         input
       );
       if (result.status === 200) {
         console.log(result);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error.message);
@@ -60,7 +64,7 @@ export default function Dashboard() {
                 type="submit"
                 className="inline-flex items-center py-2 px-3.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
               >
-                Post
+                {loading ? <LoadingIcon /> : "Post"}
               </button>
             </div>
           </div>

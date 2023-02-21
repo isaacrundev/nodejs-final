@@ -14,7 +14,7 @@ const PORT = config.PORT;
 
 app.use(express.json());
 console.log("clientUrl: ", config.clientUrl);
-app.use(cors({ origin: config.clientUrl }));
+app.use(cors());
 
 app.get("/check", (_, res) =>
   res.json({ response: "=Health check=" }).status(200)
