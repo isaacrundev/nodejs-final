@@ -9,9 +9,8 @@ export default function PostList() {
       const res = await axios.get(
         `${import.meta.env.VITE_SERVER_URL}/api/post/all`
       );
-
       setPosts(res.data.reverse());
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -31,7 +30,7 @@ export default function PostList() {
               {post.createdAt}
             </time>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {post.username}
+              {post.username.charAt(0).toUpperCase() + post.username.slice(1)}
             </h3>
             <p className="text-base font-normal text-gray-500 dark:text-gray-400">
               {post.content}

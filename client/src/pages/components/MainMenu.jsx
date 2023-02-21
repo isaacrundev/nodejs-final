@@ -13,11 +13,11 @@ export default function MainMenu() {
 
   return (
     <>
-      <nav className="bg-white border-gray-200 px-2 md:px-4 py-2.5 dark:bg-gray-900">
-        <div className="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
+      <nav className="bg-white border-gray-200 py-2.5 dark:bg-gray-900">
+        <div className="flex flex-wrap items-center justify-between mx-auto">
           <a href="/" className="flex items-center">
             <Fox />
-            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white pl-2">
               FoxBook
             </span>
           </a>
