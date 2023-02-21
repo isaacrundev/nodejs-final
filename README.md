@@ -4,7 +4,9 @@ Deployed Url: <https://nodejs-final-client.vercel.app/>
 
 ---
 
-Used libraries:
+Stack: MERN stack
+
+Libraries:
 
 Front-end -
 
