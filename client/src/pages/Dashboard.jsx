@@ -2,7 +2,6 @@ import { Button } from "flowbite-react";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import PostList from "./components/PostList";
 import MainMenu from "./components/MainMenu";
 import LoadingIcon from "../assets/LoadingIcon";
 
@@ -14,8 +13,24 @@ const postValues = {
 export default function Dashboard() {
   const [input, setInput] = useState(postValues);
   const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
 
   const navigate = useNavigate();
+
+  const fetchNotes = async () => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/api/post/all`
+      );
+      setPosts(res.data.reverse());
+      // console.log(res.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    fetchNotes();
+  }, []);
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -31,8 +46,9 @@ export default function Dashboard() {
         input
       );
       if (result.status === 200) {
-        console.log(result);
+        // console.log(result);
         setLoading(false);
+        fetchNotes();
       }
     } catch (error) {
       console.log(error.message);
@@ -70,7 +86,23 @@ export default function Dashboard() {
           </div>
         </form>
         <p className="ml-auto text-xs text-gray-500 dark:text-gray-400"></p>
-        <PostList />
+        <div className="text-black text-xl">Posts</div>
+        <ol className="relative border-l border-gray-200 dark:border-gray-700">
+          {posts.map((post) => (
+            <li className="mb-10 ml-4" key={post._id}>
+              <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+              <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                {post.createdAt}
+              </time>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {post.username.charAt(0).toUpperCase() + post.username.slice(1)}
+              </h3>
+              <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                {post.content}
+              </p>
+            </li>
+          ))}
+        </ol>
       </div>
     </>
   );
