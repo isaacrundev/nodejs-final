@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MainMenu from "./components/MainMenu";
 import LoadingIcon from "../assets/LoadingIcon";
+import Dropdown from "./components/Dropdown";
 
 const postValues = {
   username: localStorage.getItem("username"),
@@ -45,6 +46,7 @@ export default function Dashboard() {
         `${import.meta.env.VITE_SERVER_URL}/api/post/create`,
         input
       );
+
       if (result.status === 200) {
         // console.log(result);
         setLoading(false);
@@ -91,9 +93,12 @@ export default function Dashboard() {
           {posts.map((post) => (
             <li className="mb-10 ml-4" key={post._id}>
               <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-              <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                {post.createdAt}
-              </time>
+              <div className=" flex flex-row">
+                <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                  {post.createdAt}
+                </time>
+                <Dropdown />
+              </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {post.username.charAt(0).toUpperCase() + post.username.slice(1)}
               </h3>
