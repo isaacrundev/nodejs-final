@@ -2,6 +2,7 @@ const Note = require("../model/Note");
 
 const createController = async (req, res, next) => {
   const createPostService = await Note.create(req.body);
+  console.log(req.body);
   return res.json(createPostService);
 };
 
