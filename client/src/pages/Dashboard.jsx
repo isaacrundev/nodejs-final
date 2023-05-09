@@ -5,6 +5,13 @@ import axios from "axios";
 import MainMenu from "./components/MainMenu";
 import LoadingIcon from "../assets/LoadingIcon";
 import Dropdown from "./components/Dropdown";
+import moment from "moment";
+
+const timeGenerator = (iso8601) => {
+  const time = new Date(iso8601);
+  const timeArr = time.toString().split(" ");
+  return `${timeArr[3]}-${timeArr[1]}-${timeArr[2]} ${timeArr[4]}`;
+};
 
 const postValues = {
   username: localStorage.getItem("username"),
@@ -12,7 +19,7 @@ const postValues = {
 };
 
 export default function Dashboard() {
-  const [input, setInput] = useState(postValues);
+  const [input, setInput] = useState(null);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
 
@@ -30,6 +37,7 @@ export default function Dashboard() {
     }
   };
   useEffect(() => {
+    setInput(postValues);
     fetchNotes();
   }, []);
 
@@ -95,7 +103,7 @@ export default function Dashboard() {
               <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
               <div className=" flex flex-row">
                 <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                  {post.createdAt}
+                  {timeGenerator(post.createdAt)}
                 </time>
                 <Dropdown />
               </div>
