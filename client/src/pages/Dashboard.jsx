@@ -5,12 +5,11 @@ import axios from "axios";
 import MainMenu from "./components/MainMenu";
 import LoadingIcon from "../assets/LoadingIcon";
 import Dropdown from "./components/Dropdown";
-import moment from "moment";
 
 const timeGenerator = (iso8601) => {
   const time = new Date(iso8601);
   const timeArr = time.toString().split(" ");
-  return `${timeArr[3]}-${timeArr[1]}-${timeArr[2]} ${timeArr[4]}`;
+  return `${timeArr[3]}-${timeArr[1]}-${timeArr[2]} ${timeArr[4].slice(0, -3)}`;
 };
 
 const postValues = {
@@ -96,7 +95,7 @@ export default function Dashboard() {
           </div>
         </form>
         <p className="ml-auto text-xs text-gray-500 dark:text-gray-400"></p>
-        <div className="text-black text-xl">Posts</div>
+        <div className="text-black text-xl font-bold py-4">Posts</div>
         <ol className="relative border-l border-gray-200 dark:border-gray-700">
           {posts.map((post) => (
             <li className="mb-10 ml-4" key={post._id}>
@@ -105,7 +104,7 @@ export default function Dashboard() {
                 <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                   {timeGenerator(post.createdAt)}
                 </time>
-                <Dropdown />
+                {localStorage.username === post.username && <Dropdown />}
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {post.username.charAt(0).toUpperCase() + post.username.slice(1)}
