@@ -29,7 +29,6 @@ export default function Login() {
     try {
       e.preventDefault();
       setLoading(true);
-
       const result = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
         value
@@ -85,9 +84,8 @@ export default function Login() {
               Sign up
             </a>
           </div>
-          <Button type="submit">
-            {loading ? <LoadingIcon /> : null}
-            Login
+          <Button type="submit" disabled={loading ? true : false}>
+            {loading ? <LoadingIcon /> : "Login"}
           </Button>
           {failMsg ? (
             <div className=" text-red-600 text-sm">

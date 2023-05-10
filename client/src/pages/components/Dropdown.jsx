@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Dropdown() {
   const [open, setOpen] = useState(false);
+  const refForClosing = useRef();
+
+  useEffect(() => {
+    let outsideClickHandler = (e) => {
+      !refForClosing.current.contains(e.target) && setOpen(false);
+      console.log(refForClosing.current);
+    };
+  });
 
   const handleClick = () => {
     setOpen(!open);
@@ -21,7 +29,8 @@ export default function Dropdown() {
       {open && (
         <div
           id="dropdown"
-          className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow"
+          className="bg-white divide-y divide-gray-100 rounded-lg shadow"
+          ref={refForClosing}
         >
           <ul
             className="py-2 text-sm text-gray-700"
@@ -35,14 +44,6 @@ export default function Dropdown() {
             <li>
               <button className="block px-4 py-2 hover:bg-gray-100 ">
                 Delete
-              </button>
-            </li>
-            <li>
-              <button
-                // onClick={setOpen(!open)}
-                className="block px-4 py-2 text-red-600 hover:bg-gray-100 "
-              >
-                Close
               </button>
             </li>
           </ul>
