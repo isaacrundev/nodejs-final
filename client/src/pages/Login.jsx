@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState } from "react";
 import { Label, TextInput, Button } from "flowbite-react";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
@@ -14,7 +14,6 @@ export default function Login() {
   const [failMsg, setFailMsg] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const UserContext = createContext();
 
   if (localStorage.getItem("token")) {
     return <Navigate to="/dashboard" />;
@@ -84,7 +83,7 @@ export default function Login() {
               Sign up
             </a>
           </div>
-          <Button type="submit" disabled={loading ? true : false}>
+          <Button type="submit" disabled={loading}>
             {loading ? <LoadingIcon /> : "Login"}
           </Button>
           {failMsg ? (

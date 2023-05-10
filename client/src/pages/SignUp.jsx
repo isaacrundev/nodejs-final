@@ -5,6 +5,7 @@ import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate, Navigate } from "react-router-dom";
+import LoadingIcon from "../assets/LoadingIcon";
 
 const schema = z
   .object({
@@ -26,6 +27,7 @@ const schema = z
 export default function SignUp() {
   const [usernameExist, setUsernameExist] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   if (localStorage.getItem("token")) {
     return <Navigate to="/dashboard" />;
@@ -44,7 +46,7 @@ export default function SignUp() {
 
   const handleSave = async (values) => {
     try {
-      console.log(errors);
+      setLoading(true);
       const saveData = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/auth/signup`,
         values
@@ -63,7 +65,6 @@ export default function SignUp() {
 
   return (
     <>
-      {" "}
       <div className="flex items-center justify-center h-screen">
         <form
           className="flex flex-col gap-4 text-black"
@@ -141,13 +142,14 @@ export default function SignUp() {
               {errors.confirmPassword?.message}
             </div>
           ) : null}
-          <Button type="submit">Sign up</Button>
-          {/* <button
-            type="button"
-            class="text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          >
-            Cancel
-          </button> */}
+          <div className="flex flex-col gap-2">
+            <Button type="submit" disabled={loading} className="block">
+              {loading ? <LoadingIcon /> : "Sign up"}
+            </Button>
+            <Button href="/" type="button" color="gray">
+              Back
+            </Button>
+          </div>
         </form>
       </div>
     </>

@@ -1,6 +1,5 @@
 import { Button } from "flowbite-react";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MainMenu from "./components/MainMenu";
 import LoadingIcon from "../assets/LoadingIcon";
@@ -18,11 +17,12 @@ const postValues = {
 };
 
 export default function Dashboard() {
-  const [input, setInput] = useState(null);
+  const [input, setInput] = useState({
+    username: localStorage.username,
+    content: "",
+  });
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
-
-  const navigate = useNavigate();
 
   const fetchNotes = async () => {
     try {
@@ -30,7 +30,6 @@ export default function Dashboard() {
         `${import.meta.env.VITE_SERVER_URL}/api/post/all`
       );
       setPosts(res.data.reverse());
-      // console.log(res.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -41,8 +40,10 @@ export default function Dashboard() {
   }, []);
 
   const handleInputChange = (e) => {
-    let { name, value } = e.target;
-    setInput((prev) => ({ ...prev, [name]: value }));
+    let { value } = e.target;
+    // setInput((prev) => ({ ...prev, [name]: value }));
+    setInput((prev) => ({ ...prev, content: value }));
+    console.log(input);
   };
 
   const handleCreateClick = async (e) => {
@@ -55,7 +56,6 @@ export default function Dashboard() {
       );
 
       if (result.status === 200) {
-        // console.log(result);
         setLoading(false);
         fetchNotes();
       }
@@ -86,6 +86,7 @@ export default function Dashboard() {
             </div>
             <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
               <button
+                disabled={loading}
                 type="submit"
                 className="inline-flex items-center py-2 px-3.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
               >
@@ -100,11 +101,15 @@ export default function Dashboard() {
           {posts.map((post) => (
             <li className="mb-10 ml-4" key={post._id}>
               <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-              <div className=" flex flex-row">
-                <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                  {timeGenerator(post.createdAt)}
-                </time>
-                {localStorage.username === post.username && <Dropdown />}
+              <div className=" flex flex-row gap-2">
+                <div>
+                  <time className="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                    {timeGenerator(post.createdAt)}
+                  </time>
+                </div>
+                <div>
+                  {localStorage.username === post.username && <Dropdown />}
+                </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {post.username.charAt(0).toUpperCase() + post.username.slice(1)}

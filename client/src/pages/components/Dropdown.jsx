@@ -23,7 +23,7 @@ export default function Dropdown() {
       <button
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
-        className="text-black bg-transparent hover:bg-gray-100  focus:ring-1 focus:outline-none font-medium text-lg text-center inline-flex items-center "
+        className="text-black bg-transparent hover:bg-gray-100  focus:ring-1 focus:outline-none text-sm text-center items-center "
         type="button"
         onClick={handleClick}
         ref={refForClosing}
