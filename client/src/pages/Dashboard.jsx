@@ -11,16 +11,8 @@ const timeGenerator = (iso8601) => {
   return `${timeArr[3]}-${timeArr[1]}-${timeArr[2]} ${timeArr[4].slice(0, -3)}`;
 };
 
-const postValues = {
-  username: localStorage.getItem("username"),
-  content: "",
-};
-
 export default function Dashboard() {
-  const [input, setInput] = useState({
-    username: localStorage.username,
-    content: "",
-  });
+  const [input, setInput] = useState({});
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
 
@@ -34,16 +26,23 @@ export default function Dashboard() {
       console.log(error.message);
     }
   };
+
   useEffect(() => {
-    setInput(postValues);
     fetchNotes();
   }, []);
+
+  // useEffect(() => {
+  //   console.log(input);
+  // }, [input]);
 
   const handleInputChange = (e) => {
     let { value } = e.target;
     // setInput((prev) => ({ ...prev, [name]: value }));
-    setInput((prev) => ({ ...prev, content: value }));
-    console.log(input);
+    setInput((prev) => ({
+      ...prev,
+      username: localStorage.getItem("username"),
+      content: value,
+    }));
   };
 
   const handleCreateClick = async (e) => {
