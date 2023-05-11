@@ -19,16 +19,21 @@ export default function Dropdown(props) {
     setOpen(!open);
   };
 
-  const editOnclick = () => {};
+  const editOnclick = () => {
+    setOpen(false);
+  };
 
   const deleteOnclick = async () => {
     try {
       const result = await axios.delete(
         `${import.meta.env.VITE_SERVER_URL}/api/post/${props.postId}/delete`
       );
-      result.status === 200 && props.fetchNotes();
+      setOpen(false);
+      if (result.status === 200) {
+        props.fetchNotes();
+      }
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 
@@ -52,18 +57,18 @@ export default function Dropdown(props) {
             className="py-2 text-sm text-gray-700"
             aria-labelledby="dropdownDefaultButton"
           >
-            <li>
+            <li className="w-full">
               <button
-                className="block px-4 py-2 hover:bg-gray-100"
+                className="block w-full hover:bg-gray-100 text-left p-2"
                 type="button"
                 onClick={editOnclick}
               >
                 Edit
               </button>
             </li>
-            <li>
+            <li className="w-full">
               <button
-                className="block px-4 py-2 hover:bg-gray-100 text-red-600 font-bold"
+                className="block w-full hover:bg-gray-100 text-red-600 font-bold text-left p-2"
                 type="button"
                 onClick={deleteOnclick}
               >
