@@ -48,9 +48,9 @@ export default function Dashboard() {
       );
 
       if (result.status === 200) {
+        setInput("");
         setLoading(false);
         fetchNotes();
-        setInput("");
       }
     } catch (error) {
       console.log(error.message);
