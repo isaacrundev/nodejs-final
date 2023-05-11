@@ -18,6 +18,10 @@ export default function Dropdown() {
     setOpen(!open);
   };
 
+  const editOnclick = () => {};
+
+  const deleteOnclick = () => {};
+
   return (
     <div>
       <button
@@ -40,12 +44,20 @@ export default function Dropdown() {
             aria-labelledby="dropdownDefaultButton"
           >
             <li>
-              <button className="block px-4 py-2 hover:bg-gray-100 ">
+              <button
+                className="block px-4 py-2 hover:bg-gray-100"
+                type="button"
+                onClick={editOnclick}
+              >
                 Edit
               </button>
             </li>
             <li>
-              <button className="block px-4 py-2 hover:bg-gray-100 text-red-600 font-bold">
+              <button
+                className="block px-4 py-2 hover:bg-gray-100 text-red-600 font-bold"
+                type="button"
+                onClick={deleteOnclick}
+              >
                 Delete
               </button>
             </li>

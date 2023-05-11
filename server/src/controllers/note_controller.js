@@ -17,7 +17,7 @@ const updateController = async (req, res, next) => {
 };
 
 const deleteController = async (req, res, next) => {
-  const deletePostService = await Note.findByIdAndDelete();
+  const deletePostService = await Note.findByIdAndDelete(req.body.id);
 };
 
 module.exports = {
