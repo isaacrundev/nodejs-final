@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Dropdown() {
+export default function Dropdown(postId, fetchNotes) {
   const [open, setOpen] = useState(false);
   const refForClosing = useRef();
 
@@ -20,7 +20,16 @@ export default function Dropdown() {
 
   const editOnclick = () => {};
 
-  const deleteOnclick = () => {};
+  const deleteOnclick = async () => {
+    try {
+      const result = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/post/${postId}/delete`
+      );
+      result.status === 200 && fetchNotes();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div>

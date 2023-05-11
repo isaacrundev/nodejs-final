@@ -11,13 +11,15 @@ const readController = async (req, res, next) => {
 };
 
 const updateController = async (req, res, next) => {
-  const targetId = req.params.id;
+  const targetId = req.params._id;
   const content = req.body.content;
   const updatePostService = await Note.findByIdAndUpdate(targetId, { content });
 };
 
 const deleteController = async (req, res, next) => {
-  const deletePostService = await Note.findByIdAndDelete(req.body.id);
+  const targetId = req.params._id;
+  const deletePostService = await Note.findByIdAndDelete(targetId);
+  return res.json(deletePostService);
 };
 
 module.exports = {

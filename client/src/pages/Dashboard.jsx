@@ -102,7 +102,9 @@ export default function Dashboard() {
                   </time>
                 </div>
                 <div>
-                  {localStorage.username === post.username && <Dropdown />}
+                  {localStorage.username === post.username && (
+                    <Dropdown id={post._id} />
+                  )}
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
