@@ -1,6 +1,7 @@
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
-export default function Dropdown(postId, fetchNotes) {
+export default function Dropdown(props) {
   const [open, setOpen] = useState(false);
   const refForClosing = useRef();
 
@@ -12,7 +13,7 @@ export default function Dropdown(postId, fetchNotes) {
     return () => {
       document.removeEventListener("mousedown", outsideClickHandler);
     };
-  });
+  }, [refForClosing]);
 
   const handleClick = () => {
     setOpen(!open);
@@ -22,24 +23,23 @@ export default function Dropdown(postId, fetchNotes) {
 
   const deleteOnclick = async () => {
     try {
-      const result = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/api/post/${postId}/delete`
+      const result = await axios.delete(
+        `${import.meta.env.VITE_SERVER_URL}/api/post/${props.postId}/delete`
       );
-      result.status === 200 && fetchNotes();
+      result.status === 200 && props.fetchNotes();
     } catch (error) {
       console.log(error.message);
     }
   };
 
   return (
-    <div>
+    <div ref={refForClosing}>
       <button
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
         className="text-black bg-transparent hover:bg-gray-100  focus:ring-1 focus:outline-none text-sm text-center items-center "
         type="button"
         onClick={handleClick}
-        ref={refForClosing}
       >
         ...
       </button>

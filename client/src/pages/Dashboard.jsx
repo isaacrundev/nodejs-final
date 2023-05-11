@@ -29,7 +29,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchNotes();
-  }, []);
+  });
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -103,7 +103,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   {localStorage.username === post.username && (
-                    <Dropdown id={post._id} />
+                    <Dropdown postId={post._id} fetchNotes={fetchNotes} />
                   )}
                 </div>
               </div>

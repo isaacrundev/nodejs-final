@@ -8,6 +8,6 @@ router.post("/auth/signup", authController.signUpController);
 router.get("/post/all", noteController.readController);
 router.post("/post/create", noteController.createController);
 router.put("/post/:postId/update", noteController.updateController);
-router.post("/post/:postId/delete", noteController.deleteController);
+router.delete("/post/:postId/delete", noteController.deleteController);
 
 module.exports = router;
