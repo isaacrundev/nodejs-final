@@ -12,7 +12,7 @@ const timeGenerator = (iso8601) => {
 };
 
 export default function Dashboard() {
-  const [input, setInput] = useState({});
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
 
@@ -31,18 +31,8 @@ export default function Dashboard() {
     fetchNotes();
   }, []);
 
-  // useEffect(() => {
-  //   console.log(input);
-  // }, [input]);
-
   const handleInputChange = (e) => {
-    let { value } = e.target;
-    // setInput((prev) => ({ ...prev, [name]: value }));
-    setInput((prev) => ({
-      ...prev,
-      username: localStorage.getItem("username"),
-      content: value,
-    }));
+    setInput(e.target.value);
   };
 
   const handleCreateClick = async (e) => {
@@ -51,12 +41,16 @@ export default function Dashboard() {
       setLoading(true);
       const result = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/post/create`,
-        input
+        {
+          username: localStorage.getItem("username"),
+          content: input,
+        }
       );
 
       if (result.status === 200) {
         setLoading(false);
         fetchNotes();
+        setInput("");
       }
     } catch (error) {
       console.log(error.message);
@@ -80,6 +74,7 @@ export default function Dashboard() {
                 className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                 placeholder="Say something..."
                 required
+                value={input}
                 onChange={handleInputChange}
               />
             </div>
