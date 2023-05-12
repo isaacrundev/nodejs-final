@@ -4,7 +4,6 @@ import axios from "axios";
 import MainMenu from "./components/MainMenu";
 import LoadingIcon from "../assets/LoadingIcon";
 import Dropdown from "./components/Dropdown";
-import EditPost from "./components/EditPost";
 
 const timeGenerator = (iso8601) => {
   const time = new Date(iso8601);
@@ -111,10 +110,9 @@ export default function Dashboard() {
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {post.username.charAt(0).toUpperCase() + post.username.slice(1)}
               </h3>
-              <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+              <p className="text-base font-normal text-gray-500 dark:text-gray-400 py-3">
                 {post.content}
               </p>
-              {<EditPost postContent={post.content} />}
             </li>
           ))}
         </ol>
