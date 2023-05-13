@@ -16,7 +16,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  const fetchNotes = async () => {
+  const fetchAll = async () => {
     try {
       const res = await axios.get(
         `${import.meta.env.VITE_SERVER_URL}/api/post/all`
@@ -28,7 +28,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetchNotes();
+    fetchAll();
   });
 
   const handleInputChange = (e) => {
@@ -50,7 +50,7 @@ export default function Dashboard() {
       if (result.status === 200) {
         setInput("");
         setLoading(false);
-        fetchNotes();
+        fetchAll();
       }
     } catch (error) {
       console.log(error.message);
@@ -103,7 +103,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   {localStorage.username === post.username && (
-                    <Dropdown postId={post._id} fetchNotes={fetchNotes} />
+                    <Dropdown postId={post._id} fetchAll={fetchAll} />
                   )}
                 </div>
               </div>
