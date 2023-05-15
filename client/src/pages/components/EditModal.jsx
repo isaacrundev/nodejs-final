@@ -18,7 +18,7 @@ function EditModal({ closeModal, postContent, postId, fetchAll }) {
     try {
       const result = await axios.put(
         `${import.meta.env.VITE_SERVER_URL}/api/post/${postId}/update`,
-        { data: { content: inputValue } }
+        { content: inputValue }
       );
       closeModal();
       if (result.status === 200) {
