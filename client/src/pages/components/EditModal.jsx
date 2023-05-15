@@ -3,11 +3,18 @@ import { useEffect, useState } from "react";
 
 function EditModal(props) {
   const [inputValue, setInputValue] = useState("");
-  const [editIsOpen, setEditIsOpen] = useState(false);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     setInputValue(props.postContent);
   }, []);
+
+  const openModalClick = () => {
+    () => {
+      props.setDropdownIsOpen(false);
+      setModalIsOpen(true);
+    };
+  };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -23,7 +30,7 @@ function EditModal(props) {
         <button
           className="block w-full hover:bg-gray-100 text-left p-2"
           type="button"
-          onClick={props.editOnclick}
+          onClick={openModalClick}
         >
           Edit
         </button>

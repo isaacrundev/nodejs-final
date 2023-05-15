@@ -3,8 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
 
-export default function Dropdown(props) {
+export default function Dropdown({ postId, fetchAll }) {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+
   const refForClosing = useRef();
 
   useEffect(() => {
@@ -21,10 +24,6 @@ export default function Dropdown(props) {
     setDropdownIsOpen(!dropdownIsOpen);
   };
 
-  const editOnclick = () => {
-    setDropdownIsOpen(false);
-  };
-
   return (
     <div ref={refForClosing}>
       <button
@@ -36,7 +35,7 @@ export default function Dropdown(props) {
       >
         ...
       </button>
-      {dropdownIsOpen && (
+      {dropdownIsOpen ? (
         <div
           id="dropdown"
           className="bg-white divide-y divide-gray-100 rounded-lg shadow z-10 absolute"
@@ -45,11 +44,21 @@ export default function Dropdown(props) {
             className="py-2 text-sm text-gray-700"
             aria-labelledby="dropdownDefaultButton"
           >
-            <EditModal editOnclick={editOnclick} />
-            <DeleteModal postId={props.postId} fetchAll={props.fetchAll} />
+            <li className="w-full">
+              <button
+                className="block w-full hover:bg-gray-100 text-red-600 font-bold text-left p-2"
+                type="button"
+                onClick={() => {
+                  setDeleteModalIsOpen(true);
+                  setDropdownIsOpen(false);
+                }}
+              >
+                Delete
+              </button>
+            </li>
           </ul>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

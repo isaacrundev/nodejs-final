@@ -1,8 +1,6 @@
 import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
-function DeleteModal(props) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
+function DeleteModal({ closeDropdown }) {
   const handleClose = () => {
     setModalIsOpen(false);
   };
@@ -22,42 +20,26 @@ function DeleteModal(props) {
 
   return (
     <>
-      <li className="w-full">
-        <button
-          className="block w-full hover:bg-gray-100 text-red-600 font-bold text-left p-2"
-          type="button"
-          onClick={() => {
-            setModalIsOpen(true);
-          }}
-        >
-          Delete
-        </button>
-      </li>
-      {modalIsOpen && (
-        <div className=" z-20 absolute bg-gray-400 opacity-50">
-          <div className=" mx-auto my-0">
-            <Modal onClose={handleClose}>
-              <Modal.Header>Edit Post</Modal.Header>
-              <Modal.Body>
-                <div className="space-y-6">
-                  <TextInput
-                    value={inputValue}
-                    onChange={handleInputChange}
-                  ></TextInput>
-                </div>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={handleSave} color="failure">
-                  Delete
-                </Button>
-                <Button color="light" onClick={handleClose}>
-                  Cancel
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          </div>
+      <div className=" z-20 w-full h-full fixed translate-x-[-50%] translate-y-[-50%] bg-gray-400 opacity-50">
+        <div className=" mx-auto my-0">
+          <Modal onClose={handleClose}>
+            <Modal.Header>Delete</Modal.Header>
+            <Modal.Body>
+              <div>
+                <p>Are you sure you want to delete this post?</p>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={deleteOnclick} color="failure">
+                Delete
+              </Button>
+              <Button color="light" onClick={handleClose}>
+                Cancel
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
-      )}
+      </div>
     </>
   );
 }
