@@ -103,7 +103,11 @@ export default function Dashboard() {
                 </div>
                 <div>
                   {localStorage.username === post.username && (
-                    <Dropdown postId={post._id} fetchAll={fetchAll} />
+                    <Dropdown
+                      postId={post._id}
+                      fetchAll={fetchAll}
+                      postContent={post.content}
+                    />
                   )}
                 </div>
               </div>

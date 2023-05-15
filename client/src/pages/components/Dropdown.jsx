@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
 
-export default function Dropdown({ postId, fetchAll }) {
+export default function Dropdown({ postId, fetchAll, postContent }) {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -46,6 +46,18 @@ export default function Dropdown({ postId, fetchAll }) {
           >
             <li className="w-full">
               <button
+                className="block w-full hover:bg-gray-100 text-left p-2"
+                type="button"
+                onClick={() => {
+                  setEditModalIsOpen(true);
+                  setDropdownIsOpen(false);
+                }}
+              >
+                Edit
+              </button>
+            </li>
+            <li className="w-full">
+              <button
                 className="block w-full hover:bg-gray-100 text-red-600 font-bold text-left p-2"
                 type="button"
                 onClick={() => {
@@ -59,6 +71,29 @@ export default function Dropdown({ postId, fetchAll }) {
           </ul>
         </div>
       ) : null}
+      {deleteModalIsOpen && (
+        <DeleteModal
+          fetchAll={() => {
+            fetchAll();
+          }}
+          postId={postId}
+          closeModal={() => {
+            setDeleteModalIsOpen(false);
+          }}
+        />
+      )}
+      {editModalIsOpen && (
+        <EditModal
+          fetchAll={() => {
+            fetchAll();
+          }}
+          postId={postId}
+          postContent={postContent}
+          closeModal={() => {
+            setEditModalIsOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }

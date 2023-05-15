@@ -1,43 +1,43 @@
+import axios from "axios";
+
 import { TextInput, Button, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 
-function EditModal(props) {
+function EditModal({ closeModal, postContent, postId, fetchAll }) {
   const [inputValue, setInputValue] = useState("");
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
-    setInputValue(props.postContent);
+    setInputValue(postContent);
   }, []);
-
-  const openModalClick = () => {
-    () => {
-      props.setDropdownIsOpen(false);
-      setModalIsOpen(true);
-    };
-  };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleSave = () => {};
+  const handleSave = async () => {
+    try {
+      const result = await axios.put(
+        `${import.meta.env.VITE_SERVER_URL}/api/post/${postId}/update`,
+        { data: { content: inputValue } }
+      );
+      closeModal();
+      if (result.status === 200) {
+        fetchAll();
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-  const handleClose = () => {};
+  const handleClose = () => {
+    closeModal();
+  };
 
   return (
     <>
-      <li className="w-full">
-        <button
-          className="block w-full hover:bg-gray-100 text-left p-2"
-          type="button"
-          onClick={openModalClick}
-        >
-          Edit
-        </button>
-      </li>
-      <div className=" z-20 absolute bg-gray-400 opacity-50">
+      <div className=" z-20 w-full h-full fixed top-0 left-0 bg-black opacity-80">
         <div className=" mx-auto my-0">
-          <Modal onClose={handleClose}>
+          <Modal show={true} onClose={handleClose}>
             <Modal.Header>Edit Post</Modal.Header>
             <Modal.Body>
               <div className="space-y-6">

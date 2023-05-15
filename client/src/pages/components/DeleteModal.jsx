@@ -1,17 +1,18 @@
+import axios from "axios";
+
 import { Button, Modal } from "flowbite-react";
-import { useState } from "react";
-function DeleteModal({ closeDropdown }) {
+function DeleteModal({ closeModal, fetchAll, postId }) {
   const handleClose = () => {
-    setModalIsOpen(false);
+    closeModal();
   };
   const deleteOnclick = async () => {
     try {
       const result = await axios.delete(
-        `${import.meta.env.VITE_SERVER_URL}/api/post/${props.postId}/delete`
+        `${import.meta.env.VITE_SERVER_URL}/api/post/${postId}/delete`
       );
-      setOpen(false);
+      closeModal();
       if (result.status === 200) {
-        props.fetchAll();
+        fetchAll();
       }
     } catch (error) {
       console.error(error.message);
@@ -20,9 +21,14 @@ function DeleteModal({ closeDropdown }) {
 
   return (
     <>
-      <div className=" z-20 w-full h-full fixed translate-x-[-50%] translate-y-[-50%] bg-gray-400 opacity-50">
-        <div className=" mx-auto my-0">
-          <Modal onClose={handleClose}>
+      <div className=" z-20 w-full h-full fixed top-0 left-0 bg-black opacity-80">
+        <div
+          className=" mx-auto my-0"
+          //   onClick={(e) => {
+          //     e.stopPropagation(e);
+          //   }}
+        >
+          <Modal show={true} onClose={handleClose}>
             <Modal.Header>Delete</Modal.Header>
             <Modal.Body>
               <div>

@@ -14,6 +14,7 @@ const updateController = async (req, res, next) => {
   const targetId = req.params.postId;
   const content = req.body.content;
   const updatePostService = await Note.findByIdAndUpdate(targetId, { content });
+  return res.json(updatePostService);
 };
 
 const deleteController = async (req, res, next) => {
