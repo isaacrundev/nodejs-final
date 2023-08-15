@@ -89,7 +89,7 @@ export default function Dashboard() {
             </div>
           </div>
         </form>
-        <p className="ml-auto text-xs text-gray-500 dark:text-gray-400"></p>
+        {/* <p className="ml-auto text-xs text-gray-500 dark:text-gray-400"></p> */}
         <div className="text-black text-xl font-bold py-4">Posts</div>
         <ol className="relative border-l border-gray-200 dark:border-gray-700">
           {posts.map((post) => (
@@ -111,10 +111,10 @@ export default function Dashboard() {
                   )}
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white overflow-scroll">
                 {post.username.charAt(0).toUpperCase() + post.username.slice(1)}
               </h3>
-              <p className="text-base font-normal text-gray-500 dark:text-gray-400 py-3">
+              <p className="text-base font-normal text-gray-500 dark:text-gray-400 py-3 overflow-scroll">
                 {post.content}
               </p>
             </li>
