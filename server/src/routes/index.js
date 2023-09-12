@@ -11,7 +11,7 @@ router.put("/post/:postId/update", noteController.updateController);
 router.delete("/post/:postId/delete", noteController.deleteController);
 
 router.get("/dummy", async (res) => {
-  res.json({ Greeting: "Aloha" });
+  return await res.json({ greeting: "Aloha" });
 });
 
 module.exports = router;
