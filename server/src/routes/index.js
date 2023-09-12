@@ -10,4 +10,8 @@ router.post("/post/create", noteController.createController);
 router.put("/post/:postId/update", noteController.updateController);
 router.delete("/post/:postId/delete", noteController.deleteController);
 
+router.get("/dummy", async (res) => {
+  res.json({ Greeting: "Aloha" });
+});
+
 module.exports = router;
