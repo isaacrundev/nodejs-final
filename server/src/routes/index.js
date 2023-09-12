@@ -10,6 +10,6 @@ router.post("/post/create", noteController.createController);
 router.put("/post/:postId/update", noteController.updateController);
 router.delete("/post/:postId/delete", noteController.deleteController);
 
-router.get("/dummy", (res) => res.json({ greeting: "Aloha" }).status(200));
+router.get("/dummy", (_, res) => res.json({ greeting: "Aloha" }).status(200));
 
 module.exports = router;
