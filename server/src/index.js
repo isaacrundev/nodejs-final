@@ -17,7 +17,7 @@ console.log("clientUrl: ", config.clientUrl);
 app.use(cors());
 
 app.get("/check", (_, res) =>
-  res.json({ response: "=Health check=" }).status(200)
+  res.json({ response: "=Health check=", node: process.version }).status(200)
 );
 
 app.use("/api", require("./routes/index"));
